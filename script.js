@@ -88,7 +88,7 @@ const artworks = [
     category: "sketches",
     medium: "Charcoal",
     description: "A realistic sketch of a Greek sculpture bust in grayscale.",
-    image: "asset/11.png",
+    image: "asset/11.PNG",
   },
   {
     id: 12,
@@ -112,7 +112,7 @@ const artworks = [
     category: "canvas",
     medium: "Acrylic on Paper",
     description: "Geometric neon-style skyscrapers glowing like a futuristic cityscape.",
-    image: "asset/14.png",
+    image: "asset/14.PNG",
   },
   {
     id: 15,
@@ -296,7 +296,7 @@ const artworks = [
     category: "paintings",
     medium: "Acrylic",
     description: "Surreal lighthouse by the sea with colorful skies and whimsical architecture.",
-    image: "asset/37.jpg",
+    image: "asset/37.JPG",
   },
   {
     id: 38,
@@ -304,7 +304,7 @@ const artworks = [
     category: "canvas",
     medium: "Acrylic & Ink",
     description: "Delicate white flowers layered over warm-toned tribal and abstract patterns.",
-    image: "asset/38.jpg",
+    image: "asset/38.JPG",
   },
   {
     id: 39,
@@ -312,7 +312,7 @@ const artworks = [
     category: "canvas",
     medium: "Acrylic & Ink",
     description: "Colorful pyramids rise amid swirling patterns and hills on a warm-toned canvas.",
-    image: "asset/39.jpg",
+    image: "asset/39.JPG",
   },
   {
     id: 40,
@@ -320,7 +320,7 @@ const artworks = [
     category: "canvas",
     medium: "Acrylic & Ink",
     description: "A bright yellow car under swirling skies, drawn in a whimsical style.",
-    image: "asset/40.jpg",
+    image: "asset/40.JPG",
   },
   {
     id: 41,
@@ -328,7 +328,7 @@ const artworks = [
     category: "canvas",
     medium: "Acrylic & Ink",
     description: "A surreal lane with a lighthouse and yellow car, dreamy colors and spirals.",
-    image: "asset/41.jpg",
+    image: "asset/41.JPG",
   },
   {
     id: 42,
@@ -336,7 +336,7 @@ const artworks = [
     category: "canvas",
     medium: "Acrylic & Ink",
     description: "Close-up of a yellow car's wheel over a decorative golden spiral pattern.",
-    image: "asset/42.jpg",
+    image: "asset/42.JPG",
   },
 ]
 
