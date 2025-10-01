@@ -624,30 +624,70 @@ function updateModalContent(artwork) {
   }
 }
 
-// Contact form functionality
+// Load EmailJS and initialize contact form
+(function() {
+  // Load EmailJS SDK
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js';
+  script.onload = function() {
+    // Initialize EmailJS after SDK is loaded
+    emailjs.init("57fGguTWnCl-wJIuq");
+    
+    // Initialize the contact form
+    initializeContactForm();
+  };
+  document.head.appendChild(script);
+})();
+
 function initializeContactForm() {
+  const contactForm = document.getElementById("contact-form");
+
+  if (!contactForm) {
+    console.error("Contact form not found!");
+    return;
+  }
+
   contactForm.addEventListener("submit", function (e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    // Get form data
-    const formData = new FormData(this)
-    const data = Object.fromEntries(formData)
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
 
-    // Simulate form submission
-    const submitBtn = this.querySelector('button[type="submit"]')
-    const originalText = submitBtn.textContent
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
 
-    submitBtn.textContent = "Sending..."
-    submitBtn.disabled = true
+    
+const currentTime = new Date().toLocaleString();
+this.querySelector('[name="time"]')?.remove(); // Remove if exists
+const timeInput = document.createElement('input');
+timeInput.type = 'hidden';
+timeInput.name = 'time';
+timeInput.value = currentTime;
+this.appendChild(timeInput);
 
-    setTimeout(() => {
-      alert("Thank you for your message! I'll get back to you soon.")
-      this.reset()
-      submitBtn.textContent = originalText
-      submitBtn.disabled = false
-    }, 2000)
-  })
+    // Send form data to EmailJS
+    emailjs.sendForm("service_vf74rd3", "template_os0xtcp", this)
+      .then(() => {
+        alert("✅ Thank you for your message! I'll get back to you soon.");
+        this.reset();
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      })
+      .catch((error) => {
+        console.error("❌ EmailJS Error:", error);
+        alert("Oops! Something went wrong. Please try again later.");
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      });
+  });
 }
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof emailjs !== 'undefined') {
+    initializeContactForm();
+  }
+});
 
 function initializeScrollEffects() {
   const observerOptions = {
