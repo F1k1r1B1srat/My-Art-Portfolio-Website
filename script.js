@@ -647,47 +647,55 @@ function initializeContactForm() {
     return;
   }
 
-  contactForm.addEventListener("submit", function (e) {
+  // Remove any existing event listeners to prevent duplicates
+  const newForm = contactForm.cloneNode(true);
+  contactForm.parentNode.replaceChild(newForm, contactForm);
+  const freshForm = document.getElementById("contact-form");
+
+  let isSending = false; // Prevent multiple submissions
+
+  freshForm.addEventListener("submit", function (e) {
     e.preventDefault();
+
+    // Prevent duplicate submissions
+    if (isSending) {
+      return;
+    }
 
     const submitBtn = this.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
 
     submitBtn.textContent = "Sending...";
     submitBtn.disabled = true;
+    isSending = true;
 
-    
-const currentTime = new Date().toLocaleString();
-this.querySelector('[name="time"]')?.remove(); // Remove if exists
-const timeInput = document.createElement('input');
-timeInput.type = 'hidden';
-timeInput.name = 'time';
-timeInput.value = currentTime;
-this.appendChild(timeInput);
+    const currentTime = new Date().toLocaleString();
+    this.querySelector('[name="time"]')?.remove(); // Remove if exists
+    const timeInput = document.createElement('input');
+    timeInput.type = 'hidden';
+    timeInput.name = 'time';
+    timeInput.value = currentTime;
+    this.appendChild(timeInput);
 
     // Send form data to EmailJS
     emailjs.sendForm("service_vf74rd3", "template_os0xtcp", this)
       .then(() => {
         alert("✅ Thank you for your message! I'll get back to you soon.");
         this.reset();
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
       })
       .catch((error) => {
         console.error("❌ EmailJS Error:", error);
         alert("Oops! Something went wrong. Please try again later.");
+      })
+      .finally(() => {
+        // Always reset button state and clean up
+        timeInput.remove();
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
+        isSending = false;
       });
   });
 }
-
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-  if (typeof emailjs !== 'undefined') {
-    initializeContactForm();
-  }
-});
 
 function initializeScrollEffects() {
   const observerOptions = {
